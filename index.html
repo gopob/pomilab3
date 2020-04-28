@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://docs.opencv.org/3.4/js_setup_usage.html -->
+<html class="mdl-js">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>Лабораторные работы ПОМИ</title>
+        <link href="./js/js_example_style.css" rel="stylesheet" type="text/css" />
+
+        <style>
+          
+        </style>
+    </head>
+    <body>
+        <div>
+            <h2>Лабораторная работа ПОМИ</h2>
+            <table cellpadding="0" cellspacing="0" width="0" border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <img id="imageSrc" alt="No Image" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="caption">Исходное изображение <input type="file" id="fileInput" name="file" accept="image/*" /></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Lab3</h2>
+            <table cellpadding="0" cellspacing="0" width="0" border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <canvas id="canvasOutput1" class="small" height="300px"></canvas>
+                        </td>
+                        <td>
+                            <canvas id="canvasOutput2" class="small" height="300px"></canvas>
+                        </td>
+                        <td>
+                            <canvas id="canvasOutput3" class="small" height="300px"></canvas>
+                        </td>
+                        <td>
+                            <canvas id="canvasOutput4" class="small" height="300px"></canvas>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="caption">Gray</div>
+                            <a id="download" download="Gray.jpg" href="" onclick="download_img(this, 'Gray', 'canvasOutput1');">Download</a>
+                        </td>
+                        <td>
+                            <div class="caption">R</div>
+                            <a id="download" download="Red.jpg" href="" onclick="download_img(this, 'Red', 'canvasOutput2');">Download</a>
+                        </td>
+                        <td>
+                            <div class="caption">G</div>
+                            <a id="download" download="Green.jpg" href="" onclick="download_img(this, 'Green', 'canvasOutput3');">Download</a>
+                        </td>
+                        <td>
+                            <div class="caption">B</div>
+                            <a id="download" download="Blue.jpg" href="" onclick="download_img(this, 'Blue', 'canvasOutput4');">Download</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" width="0" border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <canvas id="canvasOutput6" class="small" width="300px" height="300px"></canvas>
+                        </td>
+                        <td>
+                            <canvas id="canvasOutput7" class="small" width="300px" height="300px"></canvas>
+                        </td>
+                        <td>
+                            <canvas id="canvasOutput8" class="small" width="300px" height="300px"></canvas>
+                        </td>
+                        <td>
+                            <canvas id="canvasOutput9" class="small" width="300px" height="300px"></canvas>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="caption">Перемещение</div>
+
+                            <div class="affine_move">
+                                <button onclick="moveAffine('left')">
+                                    Left
+                                </button>
+                                <button onclick="moveAffine('right')">
+                                    Right
+                                </button>
+                                <button onclick="moveAffine('top')">
+                                    Top
+                                </button>
+                                <button onclick="moveAffine('bottom')">
+                                    Bottom
+                                </button>
+                            </div>
+
+                            <a id="download" download="Перемещение.jpg" href="" onclick="download_img(this, 'Перемещение', 'canvasOutput6');">Download</a>
+                        </td>
+                        <td>
+                            <div class="caption">Масштабирование</div>
+                            <div class="affine_zoom">
+                                <button onclick="zoomAffine('in')">
+                                    In
+                                </button>
+                                <button onclick="zoomAffine('out')">
+                                    Out
+                                </button>
+                            </div>
+                            <a id="download" download="Масштабирование.jpg" href="" onclick="download_img(this, 'Масштабирование', 'canvasOutput7');">Download</a>
+                        </td>
+                        <td>
+                            <div class="caption">Поворот</div>
+                            <div class="affine_rotate">
+                                <button onclick="rotateAffine('left')">
+                                    Left
+                                </button>
+                                <button onclick="rotateAffine('right')">
+                                    Right
+                                </button>
+                            </div>
+                            <a id="download" download="Поворот.jpg" href="" onclick="download_img(this, 'Поворот', 'canvasOutput8');">Download</a>
+                        </td>
+                        <td>
+                            <div class="caption">Сдвиг</div>
+                            <div class="affine_transform">
+                                <button onclick="transformAffine('leftTop+')">
+                                    Left Top Angle +
+                                </button>
+                                <button onclick="transformAffine('rightTop+')">
+                                    Right Top Angle +
+                                </button>
+                                <button onclick="transformAffine('leftBottom+')">
+                                    Left Bottom Angle +
+                                </button>
+                                <button onclick="transformAffine('rightBottom+')">
+                                    Right Bottom Angle +
+                                </button>
+                                <button onclick="transformAffine('zoomY+')">
+                                    Transform on Y-axis +
+                                </button>
+                                <button onclick="transformAffine('zoomX+')">
+                                    Transform on X-axis +
+                                </button>
+                            </div>
+                            <div class="affine_transform">
+                                <button onclick="transformAffine('leftTop-')">
+                                    Left Top Angle -
+                                </button>
+                                <button onclick="transformAffine('rightTop-')">
+                                    Right Top Angle -
+                                </button>
+                                <button onclick="transformAffine('leftBottom-')">
+                                    Left Bottom Angle -
+                                </button>
+                                <button onclick="transformAffine('rightBottom-')">
+                                    Right Bottom Angle -
+                                </button>
+                                <button onclick="transformAffine('zoomY-')">
+                                    Transform on Y-axis -
+                                </button>
+                                <button onclick="transformAffine('zoomX-')">
+                                    Transform on X-axis -
+                                </button>
+
+                                <button onclick="transformAffine('reset')">
+                                    Reset
+                                </button>
+                            </div>
+                            <a id="download" download="Сдвиг.jpg" href="" onclick="download_img(this, 'Сдвиг', 'canvasOutput9');">Download</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>Lab 4</h2>
+            <table cellpadding="0" cellspacing="0" width="0" border="0">
+                <tbody>
+                    <tr>
+                        <td>
+                            <canvas id="canvasOutput10" class="small" width="300px" height="300px"></canvas>
+                        </td>
+                        <td>
+                            <canvas id="canvasOutput11" class="small" width="300px" height="300px"></canvas>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="caption">Фильтр Гаусса</div>
+                            <div>
+                                <input onchange="updateGaussValues()" type="number" id="gv1" name="gv1" min="0" max="100" />
+                                <label for="gv1">Свертка</label>
+                            </div>
+                            <div>
+                                <input onchange="updateGaussValues()" type="number" id="gv2" name="gv2" min="0" max="100" />
+                                <label for="gv2">Sigma X</label>
+                            </div>
+                            <div>
+                                <input onchange="updateGaussValues()" type="number" id="gv3" name="gv3" min="0" max="100" />
+                                <label for="gv2">Sigma Y</label>
+                            </div>
+                            <!-- <div style="margin-top: 10px;">
+                                <button onclick="updateGaussValues()">Update</button>
+                            </div> -->
+                            <a id="download" download="Фильтр Гаусса.jpg" href="" onclick="download_img(this, 'Фильтр Гаусса', 'canvasOutput10');">Download</a>
+                        </td>
+                        <td>
+                            <div class="caption">Детектор границ Канни</div>
+                            <div>
+                                <input onchange="updateCannyValues()" type="number" id="cv1" name="cv1" min="0" max="100" />
+                                <label for="cv1">Первый порог</label>
+                            </div>
+                            <div>
+                                <input onchange="updateCannyValues()" type="number" id="cv2" name="cv2" min="0" max="100" />
+                                <label for="cv2">Второй порог</label>
+                            </div>
+                            <div>
+                                <input onchange="updateCannyValues()" type="number" id="cv3" name="cv3" min="3" max="7" />
+                                <label for="cv3">Размер апертуры</label>
+                            </div>
+                            <!-- <div style="margin-top: 10px;">
+                                <button onclick="updateCannyValues()">Update</button>
+                            </div> -->
+                            <a id="download" download="Детектор границ Канни.jpg" href="" onclick="download_img(this, 'Детектор границ Канни', 'canvasOutput11');"
+                                >Download</a
+                            >
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+           
+        </div>
+        <script src="./js/utils.js" type="text/javascript"></script>
+        <script async type="text/javascript">
+            let cannyValue1 = 50;
+            let cannyValue2 = 100;
+            let cannyValue3 = 3;
+            let gausValue1 = 3;
+            let gausValue2 = 0;
+            let gausValue3 = 0;
+            let moveX = 0;
+            let moveY = 0;
+            let zoomX = 1;
+            let zoomY = 1;
+            let rotate = 0;
+            let width = 300;
+            let height = 300;
+            let leftTop = 0;
+            let leftBottom = 0;
+            let rightTop = 0;
+            let rightBottom = 0;
+            let axisX = 1;
+            let axisY = 1;
+            let imgElement = document.getElementById("imageSrc");
+            let inputElement = document.getElementById("fileInput");
+            let cv1 = (document.getElementById("cv1").value = cannyValue1);
+            let cv2 = (document.getElementById("cv2").value = cannyValue2);
+            let cv3 = (document.getElementById("cv3").value = cannyValue3);
+            let gv1 = (document.getElementById("gv1").value = gausValue1);
+            let gv2 = (document.getElementById("gv2").value = gausValue2);
+            let gv3 = (document.getElementById("gv3").value = gausValue3);
+            inputElement.addEventListener(
+                "change",
+                (e) => {
+                    imgElement.src = URL.createObjectURL(e.target.files[0]);
+                },
+                false
+            );
+
+            imgElement.onload = function() {
+                let src = cv.imread(imgElement);
+                let R = cv.imread(imgElement);
+                let G = cv.imread(imgElement);
+                let B = cv.imread(imgElement);
+
+                let dsize = new cv.Size(src.rows, src.cols);
+                let center = new cv.Point(src.cols / 2, src.rows / 2);
+                let dst1 = new cv.Mat();
+                let dstR = new cv.Mat();
+                let dstG = new cv.Mat();
+                let dstB = new cv.Mat();
+                let dst6 = new cv.Mat();
+                let dst7 = new cv.Mat();
+                let dst8 = new cv.Mat();
+                let dst9 = new cv.Mat();
+                let dst10 = new cv.Mat();
+                let dst11 = new cv.Mat();
+                let dst12 = new cv.Mat();
+                let dst13 = new cv.Mat();
+                let dst14 = new cv.Mat();
+                let dst15 = new cv.Mat();
+                let dst16 = new cv.Mat();
+                let dst17 = new cv.Mat();
+                let rgbaPlanes = new cv.MatVector();
+    
+                cv.cvtColor(src, dst1, cv.COLOR_RGBA2GRAY, 0);
+
+                cv.cvtColor(R, R, cv.COLOR_RGBA2RGB, 0); 
+                cv.cvtColor(G, G, cv.COLOR_RGBA2RGB, 0); 
+                cv.cvtColor(B, B, cv.COLOR_RGBA2RGB, 0); 
+                
+                for (var i = 0; i < R.data.length; i+= 3) {
+                   R.data[i] = R.data[i];
+                   R.data[i+1] = 0;
+                   R.data[i+2] = 0;
+               }
+               
+               for (var i = 0; i < G.data.length; i+= 3) {
+                   G.data[i+1] = G.data[i+1];
+                   G.data[i] = 0;
+                   G.data[i+2] = 0;
+               }
+               for (var i = 0; i < B.data.length; i+= 3) {
+                   B.data[i+2] = B.data[i+2];
+                   B.data[i] = 0;
+                   B.data[i+1] = 0;
+               }
+
+                cv.imshow("canvasOutput1", dst1);
+
+                cv.imshow("canvasOutput2", R);
+                cv.imshow("canvasOutput3", G);
+                cv.imshow("canvasOutput4", B);
+
+                let M = cv.matFromArray(2, 3, cv.CV_64FC1, [1, 0, moveX, 0, 1, moveY]);
+                cv.warpAffine(src, dst6, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                cv.imshow("canvasOutput6", dst6);
+                let srcTri1 = cv.matFromArray(3, 1, cv.CV_32FC2, [0, 0, 0, 1, 1, 0]);
+                let dstTri1 = cv.matFromArray(3, 1, cv.CV_32FC2, [0, 0, 0, zoomX, zoomY, 0]);
+                let K1 = cv.getAffineTransform(srcTri1, dstTri1);
+                cv.warpAffine(src, dst7, K1, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                cv.imshow("canvasOutput7", dst7);
+                let L = cv.getRotationMatrix2D(center, rotate, 1);
+                cv.warpAffine(src, dst8, L, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                cv.imshow("canvasOutput8", dst8);
+                let srcTri = cv.matFromArray(3, 1, cv.CV_32FC2, [0, 0, 0, 1, 1, 0]);
+                let dstTri = cv.matFromArray(3, 1, cv.CV_32FC2, [leftTop, leftBottom, rightTop, axisX, axisY, rightBottom]);
+                let K = cv.getAffineTransform(srcTri, dstTri);
+                cv.warpAffine(src, dst9, K, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                cv.imshow("canvasOutput9", dst9);
+                let ksize = new cv.Size(3, 3);
+                cv.GaussianBlur(src, dst10, ksize, 0, 0, cv.BORDER_DEFAULT);
+                cv.imshow("canvasOutput10", dst10);
+                cv.cvtColor(src, src, cv.COLOR_RGB2GRAY, 0);
+                cv.Canny(src, dst11, cannyValue1, cannyValue2, cannyValue3, false);
+                cv.imshow("canvasOutput11", dst11);
+
+                return src;
+            };
+
+            function updateCannyValues() {
+                let src = cv.imread(imgElement);
+                let cannyValue1 = parseInt(document.getElementById("cv1").value);
+                let cannyValue2 = parseInt(document.getElementById("cv2").value);
+                let cannyValue3 = parseInt(document.getElementById("cv3").value);
+
+                let dstCanny = new cv.Mat();
+                cv.Canny(src, dstCanny, cannyValue1, cannyValue2, cannyValue3, false);
+                cv.imshow("canvasOutput11", dstCanny);
+            }
+
+            function updateGaussValues() {
+                let src = cv.imread(imgElement);
+                let gausValue1 = parseInt(document.getElementById("gv1").value);
+                let gausValue2 = parseInt(document.getElementById("gv2").value);
+                let gausValue3 = parseInt(document.getElementById("gv3").value);
+
+                let ksize = new cv.Size(gausValue1, gausValue1);
+                let dstGauss = new cv.Mat();
+                cv.GaussianBlur(src, dstGauss, ksize, gausValue2, gausValue3, cv.BORDER_DEFAULT);
+                cv.imshow("canvasOutput10", dstGauss);
+            }
+
+            function moveAffine(move) {
+                let src = cv.imread(imgElement);
+                if (move === "left") {
+                    moveX = moveX - 5;
+                }
+                if (move === "right") {
+                    moveX = moveX + 5;
+                }
+                if (move === "top") {
+                    moveY = moveY - 5;
+                }
+                if (move === "bottom") {
+                    moveY = moveY + 5;
+                }
+
+                let dsize = new cv.Size(src.rows, src.cols);
+                let dstMoveAffine = new cv.Mat();
+                let M = cv.matFromArray(2, 3, cv.CV_64FC1, [1, 0, moveX, 0, 1, moveY]);
+                cv.warpAffine(src, dstMoveAffine, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+
+                cv.imshow("canvasOutput6", dstMoveAffine);
+            }
+
+            function zoomAffine(type) {
+                let src = cv.imread(imgElement);
+
+                if (type === "in") {
+                    zoomX = zoomX + 0.07;
+                    zoomY = zoomY + 0.07;
+                }
+                if (type === "out") {
+                    zoomX = zoomX - 0.07;
+                    zoomY = zoomY - 0.07;
+                }
+                let dsize = new cv.Size(src.rows, src.cols);
+                let dstZoomAffine = new cv.Mat();
+                let srcTri = cv.matFromArray(3, 1, cv.CV_32FC2, [0, 0, 0, 1, 1, 0]);
+                let dstTri = cv.matFromArray(3, 1, cv.CV_32FC2, [0, 0, 0, zoomX, zoomY, 0]);
+                let K = cv.getAffineTransform(srcTri, dstTri);
+                cv.warpAffine(src, dstZoomAffine, K, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                cv.imshow("canvasOutput7", dstZoomAffine);
+            }
+
+            function rotateAffine(type) {
+                let src = cv.imread(imgElement);
+
+                if (type === "left") {
+                    rotate = rotate + 5;
+                }
+                if (type === "right") {
+                    rotate = rotate - 5;
+                }
+                let center = new cv.Point(src.cols / 2, src.rows / 2);
+                let dsize = new cv.Size(src.rows, src.cols);
+                let dstRotateAffine = new cv.Mat();
+                let L = cv.getRotationMatrix2D(center, rotate, 1);
+                cv.warpAffine(src, dstRotateAffine, L, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                cv.imshow("canvasOutput8", dstRotateAffine);
+            }
+
+            function transformAffine(type) {
+                let src = cv.imread(imgElement);
+
+                if (type === "leftTop+") {
+                    leftTop = leftTop + 0.1;
+                }
+                if (type === "leftBottom+") {
+                    leftBottom = leftBottom + 0.1;
+                }
+                if (type === "rightTop+") {
+                    rightTop = rightTop + 0.1;
+                }
+                if (type === "rightBottom+") {
+                    rightBottom = rightBottom + 0.1;
+                }
+                if (type === "zoomX+") {
+                    axisX = axisX + 0.1;
+                }
+                if (type === "zoomY+") {
+                    axisY = axisY + 0.1;
+                }
+                if (type === "leftTop-") {
+                    leftTop = leftTop - 0.1;
+                }
+                if (type === "leftBottom-") {
+                    leftBottom = leftBottom - 0.1;
+                }
+                if (type === "rightTop-") {
+                    rightTop = rightTop - 0.1;
+                }
+                if (type === "rightBottom-") {
+                    rightBottom = rightBottom - 0.1;
+                }
+                if (type === "zoomX-") {
+                    axisX = axisX - 0.1;
+                }
+                if (type === "zoomY-") {
+                    axisY = axisY - 0.1;
+                }
+                if (type === "reset") {
+                    leftTop = 0;
+                    leftBottom = 0;
+                    rightTop = 0;
+                    rightBottom = 0;
+                    axisY = 1;
+                    axisX = 1;
+                }
+                let dsize = new cv.Size(src.rows, src.cols);
+                let dstTransformAffine = new cv.Mat();
+                let srcTri = cv.matFromArray(3, 1, cv.CV_32FC2, [0, 0, 0, 1, 1, 0]);
+                let dstTri = cv.matFromArray(3, 1, cv.CV_32FC2, [leftTop, leftBottom, rightTop, axisX, axisY, rightBottom]);
+                let K = cv.getAffineTransform(srcTri, dstTri);
+                cv.warpAffine(src, dstTransformAffine, K, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+                cv.imshow("canvasOutput9", dstTransformAffine);
+            }
+
+            download_img = function(el, name, src) {
+                var canvas = document.getElementById(src);
+                var image = canvas.toDataURL("image/png");
+                el.href = image;
+            };
+
+            function binarization(src) {
+                // element = document.getElementById("canvasOutput12");
+                // c = element.getContext("2d");
+                // console.log(c);
+                // console.log(ev);
+                // im = ev.target;
+                // console.log(im);
+
+                width = src.cols;
+                height = src.rows;
+
+                imageData = src;
+
+                w2 = width / 2;
+
+                for (y = 0; y < height; y++) {
+                    // *4 for 4 ints per pixel.
+                    // This is an input index.
+                    inpos = y * width * 4;
+                    // This is an output index.
+                    outpos = inpos + w2 * 4;
+                    // The width of the image.
+                    for (x = 1; x < w2; x++) {
+                        r = imageData.data[inpos++];
+
+                        g = imageData.data[inpos++];
+                        b = imageData.data[inpos++];
+
+                        // Transform RGB color space to gray scale.
+                        gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                        // This is our threshold. You can change it.
+                        if (gray > 250) {
+                            // Set the pixel is white.
+                            imageData.data[outpos++] = 255;
+                            imageData.data[outpos++] = 255;
+                            imageData.data[outpos++] = 255;
+                        } else {
+                            // Set the pixel is black.
+                            imageData.data[outpos++] = 0;
+                            imageData.data[outpos++] = 0;
+                            imageData.data[outpos++] = 0;
+                        }
+                    } // The closing "The width of the image".
+                } // The closing "The height of the image".
+                console.log(imageData);
+                cv.imshow("canvasOutput13", imageData);
+            }
+        </script>
+        <script async="" src="./js/opencv.js" type="text/javascript"></script>
+    </body>
+</html>
